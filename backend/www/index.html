@@ -1,0 +1,61 @@
+<!DOCTYPE html> <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="./main.js" defer ></script> <title> Amoung Us </title>
+        <link rel="stylesheet" href="assets/uikit.css">
+    </head>
+
+    <body class="uk-background-dark uk-height-expand uk-flex uk-flex-center uk-flex-middle" >
+
+    <div game-ui class="uk-inline" >
+
+        <div class="uk-position-absolute uk-width-1-1 uk-height-1-1 
+                    uk-flex uk-flex-center uk-flex-middle" 
+             style="z-index: 1;" modal >
+        </div>
+
+        <canvas style="z-index:0; position: inherit;"
+                id="canvas" class="uk-rounded" >
+        </canvas>
+
+        <style>
+            
+            @keyframes skip {
+                0% { transform: rotate( 0deg); }
+                1% { transform: rotate(-5deg); }
+                2% { transform: rotate( 5deg); }
+                3% { transform: rotate(-5deg); }
+                4% { transform: rotate( 5deg); }
+                5% { transform: rotate(-5deg); }
+                6% { transform: rotate( 5deg); }
+                7% { transform: rotate(-5deg); }
+                8% { transform: rotate( 0deg); }
+              100% { transform: rotate( 0deg); }
+            }
+
+            * { user-select: none !important; }
+
+            body:has([mgame]) canvas { filter: blur(10px) contrast(1.4); }
+            canvas /*-------------*/ { filter: /*------*/ contrast(1.4); }
+
+            [modal]>:not(:last-child) { display: none ; }
+            [modal]:last-child /*--*/ { display: block; }
+            .uk-progress::after{ height: 20px !important; }
+
+            [skip] { animation: skip 10s ease-out infinite reverse; }
+
+        </style>
+        
+    </div>
+
+    </body>
+
+    <script> window.addEventListener( "load", ()=>{
+        Module({ canvas: document.querySelector("canvas") })
+       .then  (( ev )=>{ window.module = ev; })
+       .catch ((/**/)=>{ alert( "couldn't start the game" ); });
+    }); </script>
+
+</html>

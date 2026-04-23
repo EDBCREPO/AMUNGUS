@@ -1,0 +1,49 @@
+<div class="uk-width-1-1 uk-height-1-1 uk-animation" animation="slide-bottom-small" _${1}_ >
+
+    <button class="uk-button uk-button-warning uk-position-absolute uk-h0 uk-flex uk-flex-column"
+            style="top: 50%;right: 5%;" onclick="${0}._nodepp_invoke_( '${1}', -1 )" skip>
+        <icon> rewarded_ads </icon><p class="uk-h4 uk-badge uk-badge-light"> skip </p>
+    </button>
+
+    <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column">
+    <div class="uk-width-large uk-height-large uk-background-dark uk-rounded uk-padding 
+                uk-flex uk-flex-center uk-flex-middle uk-inline">
+
+        <button class="uk-button uk-button-danger uk-position-top-right uk-margin-2xsmall"
+                onclick="${0}._nodepp_invoke_( '${1}', 0 )"> 
+        <icon> close </icon> </button>
+
+        <div class="uk-flex-wrap uk-flex-column uk-gap-2xsmall
+                    uk-flex uk-child-width-1-1 uk-width-3-4" 
+        _${1}_pow val="lock" >
+
+            <div class="uk-height-xsmall uk-border uk-rounded uk-flex uk-width-1-1 uk-child-width-1-3 uk-padding-2xsmall uk-h1">
+            <button class="uk-button uk-button-danger"> <icon> lock  </icon> </button>
+            <h1 style="justify-content: center;" > ${3}° </h1>
+            <button class="uk-button uk-button-danger"> <icon> lock </icon> </button>
+            </div>
+
+            <div class="uk-height-xsmall uk-border uk-rounded uk-flex uk-width-1-1 uk-child-width-1-3 uk-padding-2xsmall uk-h1">
+            <button class="uk-button uk-button-success" onclick="${0}._nodepp_invoke_( '${1}', 3 )"> <icon> chevron_left  </icon> </button>
+            <h1 style="justify-content: center;" VALUE > ${2}° </h1>
+            <button class="uk-button uk-button-success" onclick="${0}._nodepp_invoke_( '${1}', 4 )"> <icon> chevron_right </icon> </button>
+            </div>
+
+            <input class="uk-button uk-button-light-outline uk-h1" 
+                   onclick="${0}._nodepp_invoke_( '${1}', 2 )"
+                   type="button" value="LOCK" >
+
+            <input onclick="${0}._nodepp_invoke_( '${1}', 1 )"
+                   class="uk-button uk-button-success uk-h1" 
+                   type="button" value="DONE" >
+            
+            <style>
+                [val="lock"] [value="DONE"] { display: none; visiblity: hidden; }
+                [val="done"] [value="LOCK"] { display: none; visiblity: hidden; }
+            </style>
+
+        </div>
+        
+    </div></div>
+
+</div>
