@@ -1,0 +1,45 @@
+<div class="uk-flex uk-flex-column uk-gap-2xsmall">
+    
+    <div class="uk-flex uk-gap-2xsmall uk-child-width-auto" room-selector>
+        <label class="uk-button uk-button-light-outline uk-button-light-hover uk-rounded-remove-bottom"> 
+    <input type="checkbox" value="0" hidden> Space Station </label>
+        <label class="uk-button uk-button-light-outline uk-button-light-hover uk-rounded-remove-bottom"> 
+    <input type="checkbox" value="1" hidden> Mars Colony   </label>
+        <label class="uk-button uk-button-light-outline uk-button-light-hover uk-rounded-remove-bottom"> 
+    <input type="checkbox" value="2" hidden> Aeroship      </label>
+        <label class="uk-button uk-button-light-outline uk-button-light-hover uk-rounded-remove-bottom">
+    <input type="checkbox" value="3" hidden> Frostpoint    </label>
+    <button class="uk-button uk-button-light uk-rounded-remove-bottom" style="width:100px;"
+            onclick="${0}._nodepp_invoke_('${1}',0)"
+    ><icon> search </icon> </button>
+    </div>
+    
+    <div class="uk-flex uk-flex-column uk-gap-2xsmall" room-list ></div>
+
+    <div class="uk-padding-2xsmall uk-gap-2xsmall uk-position-absolute
+                uk-flex uk-flex-column uk-position-bottom-right">
+    <button class  ="uk-button uk-button-danger uk-h1"
+            onclick="${0}._nodepp_invoke_('${1}',1)"
+    ><icon> add </icon> </button> </div>
+
+    <style>
+
+        body:has( [room-selector] input[value='0']:checked ) [map='0'] { display: flex; }
+        body:has( [room-selector] input[value='1']:checked ) [map='1'] { display: flex; }
+        body:has( [room-selector] input[value='2']:checked ) [map='2'] { display: flex; }
+        body:has( [room-selector] input[value='3']:checked ) [map='3'] { display: flex; }
+        body:has( [room-selector] input:checked ) [map] /*----------*/ { display: none; }
+
+        [room-id='0'] { background-color: var( --primary ); color: white !important; }
+        [room-id='1'] { background-color: var( --warning ); color: black !important; }
+        [room-id='2'] { background-color: var( --danger  ); color: white !important; }
+        [room-id='3'] { background-color: var( --success ); color: black !important; }
+
+        label:has( input[type="checkbox"]:checked ){ 
+            background-color: white !important; 
+            color: /*------*/ black !important;
+        }
+
+    </style>
+
+</div>

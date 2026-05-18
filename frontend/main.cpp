@@ -3,12 +3,18 @@
 /*────────────────────────────────────────────────────────────────────────────*/
 
 #include <nodepp/nodepp.h>
-#include <ungine/ungine.h>
+#include <nodepp/crypto.h>
+#include <nodepp/webrtc.h>
+#include <nodepp/http.h>
 #include <nodepp/json.h>
 #include <nodepp/bind.h>
-#include <apify/apify.h>
 #include <nodepp/ws.h>
 #include <nodepp/fs.h>
+
+/*────────────────────────────────────────────────────────────────────────────*/
+
+#include <ungine/ungine.h>
+#include <apify/apify.h>
 
 /*────────────────────────────────────────────────────────────────────────────*/
 
@@ -16,34 +22,38 @@ using namespace nodepp;
 
 /*────────────────────────────────────────────────────────────────────────────*/
 
-#include "controller/minigame.cpp"
-#include "controller/player.cpp"
-#include "controller/contrl.cpp"
-#include "controller/world.cpp"
-#include "controller/skeld.cpp"
-#include "controller/task.cpp"
+#include "controller/control/wrtc.cpp"
+#include "controller/control/ws.cpp"
 
 /*────────────────────────────────────────────────────────────────────────────*/
 
-namespace ungine { void main() {
+#include "controller/control/modal.cpp"
+#include "controller/control/menu.cpp"
 
-    node::node_scene( [=]( ptr_t<node_t> self ){
+/*────────────────────────────────────────────────────────────────────────────*/
 
-        self->append_child( "contr" , controller::contrl() );
-        self->append_child( "world" , controller::world () );
-        self->append_child( "player", controller::player() );
-        self->append_child( "skeld" , controller::skeld () );
-        self->append_child( "task"  , controller::task  () );
-        
-    });
+#include "controller/game/minigame.cpp"
+#include "controller/game/utils.cpp"
+#include "controller/game/player.cpp"
+#include "controller/game/world.cpp"
+#include "controller/game/skeld.cpp"
+#include "controller/game/task.cpp"
 
-}}
+/*────────────────────────────────────────────────────────────────────────────*/
+
+#include "controller/scene/game.cpp"
+#include "controller/scene/menu.cpp"
+#include "controller/scene/main.cpp"
+
+/*────────────────────────────────────────────────────────────────────────────*/
+
+namespace ungine { void main() { controller::main_scene(); }}
 
 /*────────────────────────────────────────────────────────────────────────────*/
 
 void onMain(){
-    ungine::engine::start  ( 800, 600, "MyGame" ); // ( 600, 400, "MyGame" );
-    ungine::engine::set_fps( 60 ); ungine::main();
+    ungine::engine::start  ( 1024, 1024, "MyGame" );
+    ungine::engine::set_fps( 30 ); ungine::main();
 }
 
 /*────────────────────────────────────────────────────────────────────────────*/

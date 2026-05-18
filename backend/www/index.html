@@ -1,58 +1,125 @@
 <!DOCTYPE html> <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
+    <head><meta charset="UTF-8">
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="./main.js" defer ></script> <title> Amoung Us </title>
+        <title> SpaceSus.io </title> <script src="./main.js" defer ></script> 
         <link rel="stylesheet" href="assets/uikit.css">
+
+    <!--
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    -->
+
     </head>
 
-    <body class="uk-background-dark uk-height-expand uk-flex uk-flex-center uk-flex-middle" >
+    <!--────────────────────────────────────────────────────────────────────────────────────────-->
 
-    <div game-ui class="uk-inline" >
+    <body class="uk-background-dark" mode="menu" >
+
+    <main class="uk-hidde" control-ui> </main>
+
+    <main class="uk-flex uk-gap-2xsmall uk-flex-column uk-height-expand 
+                 uk-padding-2xsmall" menu-ui >
+    <div  class="uk-width-1-1 uk-flex uk-flex-center uk-flex-middle 
+                 uk-flex-grow"
+    > <h0> SpaceSus.io </h0> </div> </main>
+
+    <main class="uk-flex uk-flex-center uk-flex-middle uk-inline 
+                 uk-hidde uk-height-expand" game-ui >
 
         <div class="uk-position-absolute uk-width-1-1 uk-height-1-1 
                     uk-flex uk-flex-center uk-flex-middle" 
-             style="z-index: 1;" modal >
-        </div>
+             style="z-index: 1;" game-modal 
+        > <!-- Minigames Space --> </div>
 
-        <canvas style="z-index:0; position: inherit;"
-                id="canvas" class="uk-rounded" >
-        </canvas>
+        <canvas class="uk-border uk-rounded" id="canvas" 
+                style="z-index:0; position: inherit;" 
+        > <!-- Game Space --> </canvas>
 
-        <style>
-            
-            @keyframes skip {
-                0% { transform: rotate( 0deg); }
-                1% { transform: rotate(-5deg); }
-                2% { transform: rotate( 5deg); }
-                3% { transform: rotate(-5deg); }
-                4% { transform: rotate( 5deg); }
-                5% { transform: rotate(-5deg); }
-                6% { transform: rotate( 5deg); }
-                7% { transform: rotate(-5deg); }
-                8% { transform: rotate( 0deg); }
-              100% { transform: rotate( 0deg); }
-            }
-
-            * { user-select: none !important; }
-
-            body:has([mgame]) canvas { filter: blur(10px) contrast(1.4); }
-            canvas /*-------------*/ { filter: /*------*/ contrast(1.4); }
-
-            [modal]>:not(:last-child) { display: none ; }
-            [modal]:last-child /*--*/ { display: block; }
-            .uk-progress::after{ height: 20px !important; }
-
-            [skip] { animation: skip 10s ease-out infinite reverse; }
-
-        </style>
-        
-    </div>
-
+    </main>
+    
+    <main class="uk-flex-center uk-flex-middle uk-flex-column uk-gap-small uk-flex uk-inline
+                 uk-width-1-1 uk-height-expand uk-position-absolute uk-background-dark 
+                 uk-position-top-left uk-hidden@landscape" loading-ui > 
+        <div style="font-size: 150px;"> 📱 </div>
+        <h1> Landscape Only </h1> <h3> Rotate your device </h3> 
+    </main>
+    
     </body>
 
-    <script> window.addEventListener( "load", ()=>{
+    <!--────────────────────────────────────────────────────────────────────────────────────────-->
+
+    <style> 
+            
+        @keyframes skip {
+            0% { transform: rotate( 0deg); }
+            1% { transform: rotate(-5deg); }
+            2% { transform: rotate( 5deg); }
+            3% { transform: rotate(-5deg); }
+            4% { transform: rotate( 5deg); }
+            5% { transform: rotate(-5deg); }
+            6% { transform: rotate( 5deg); }
+            7% { transform: rotate(-5deg); }
+            8% { transform: rotate( 0deg); }
+          100% { transform: rotate( 0deg); }
+        }
+
+        @keyframes bkg {
+            0% { background-position-x:    0%; }
+          100% { background-position-x: 1000%; }
+        }
+
+        * { user-select: none !important; }
+
+        [mode="game"] [menu-ui] { display: none; }
+        [mode="menu"] [game-ui] { display: none; }
+
+        canvas /*-------------*/ { filter: /*------*/ contrast(1.4); }
+        body:has([mgame]) canvas { filter: blur(10px) contrast(1.4); }
+
+        canvas {
+            width : 100vw; max-height: 90vh;
+            height: 100vh; max-width : 90vw;
+            object-fit     : cover ; 
+            object-position: center;
+        }
+
+        [game-modal]:has( [bgame] ) >div:nth-child(1) { display:none; }
+        [game-modal]:has( [mgame] ) >div:nth-child(1) { display:none; }
+        [room-modal]:has( input[modal-close]:checked) { display:none; }
+        label:has( input[name="selector"]:checked ){ 
+            background: white !important; 
+            color:      black !important; 
+        }
+
+        [skip]{ animation: skip  10s ease-out infinite reverse; }
+        body  { animation: bkg 1000s linear   infinite; }
+
+        .uk-progress::after{ height: 20px !important; }
+        .uk-button /*---*/ { white-space: nowrap; }
+        .michroma-regular  {
+            font-weight: 400; font-style: normal;   
+            font-family: "Michroma", sans-serif ;
+        }
+
+    </style>
+
+    <script> 
+
+    window.addEventListener("keydown", (e) => {
+        const activeEl= document.activeElement;
+        const isInput = activeEl.tagName === "INPUT" || activeEl.tagName === "TEXTAREA";
+        if ( isInput ){ e.stopImmediatePropagation(); }
+    }, true );
+
+    window.addEventListener("keyup", (e) => {
+        if( document.activeElement.tagName === "INPUT") 
+          { e.stopImmediatePropagation(); }
+    }, true);
+
+    window.addEventListener( "load", ()=>{
         Module({ canvas: document.querySelector("canvas") })
        .then  (( ev )=>{ window.module = ev; })
        .catch ((/**/)=>{ alert( "couldn't start the game" ); });

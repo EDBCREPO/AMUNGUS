@@ -16,15 +16,6 @@ FetchContent_MakeAvailable(nodepp)
 
 include(FetchContent)
 FetchContent_Declare(
-	nodepp-jwt
-	GIT_REPOSITORY   https://github.com/NodeppOfficial/nodepp-jwt
-	GIT_TAG          origin/main
-	GIT_PROGRESS     ON
-)
-FetchContent_MakeAvailable(nodepp-jwt)
-
-include(FetchContent)
-FetchContent_Declare(
 	nodepp-apify
 	GIT_REPOSITORY   https://github.com/NodeppOfficial/nodepp-apify
 	GIT_TAG          origin/main
@@ -47,5 +38,5 @@ set(EMCC_LINK_FLAGS
 
 add_executable( main ./main.cpp )
 target_link_options  ( main PRIVATE ${EMCC_LINK_FLAGS})
-target_link_libraries( main PUBLIC nodepp nodepp-jwt nodepp-apify nodepp-express )
+target_link_libraries( main PUBLIC nodepp nodepp-apify nodepp-express )
 target_include_directories( main PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../include" )

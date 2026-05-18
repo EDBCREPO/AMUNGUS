@@ -1,52 +1,40 @@
 #include <nodepp/nodepp.h>
+#include <nodepp/worker.h>
+#include <nodepp/os.h>
+#include <nodepp/ws.h>
+#include <nodepp/timer.h>
+#include <nodepp/optional.h>
+
+/*────────────────────────────────────────────────────────────────────────────*/
+
 #include <express/http.h>
 #include <apify/apify.h>
-#include <nodepp/ws.h>
+
+/*────────────────────────────────────────────────────────────────────────────*/
 
 using namespace nodepp;
 
-void onMain(){
+/*────────────────────────────────────────────────────────────────────────────*/
 
-    auto app = express::http::add();
-    auto apf = apify::add<ws_t>();
+#include "controller/http.cpp"
+#include "controller/ws.cpp"
 
-    app.USE([=]( express_http_t cli, function_t<void> next ){
-        cli.header( "Cross-Origin-Opener-Policy"  , "same-origin"  );
-        cli.header( "Cross-Origin-Embedder-Policy", "require-corp" );
-        console::log( cli.path, cli.get_fd() );
-    next(); });
+/*────────────────────────────────────────────────────────────────────────────*/
 
-    apf.on( "/app/connect", [=]( apify_t<ws_t> cli ){
+void onMain(){ 
 
-        cli.emit( "/app/connect", json::stringify( object_t({
-            { "id", string::to_string( &cli ) }
-        }) ));
+    limit::set_process_priority( limit::PRIORITY::HIGH_PRIORITY );
+    limit::set_hard_fileno/*-*/( os::cpus() * (uint)-1 );
+    limit::set_soft_fileno/*-*/( os::cpus() * (uint)-1 );
 
-    });
-
-    apf.on( [=]( apify_t<ws_t> cli ){
-        console::log( "404 error" );
-    });
-
-    app.USE( express::http::file( "www" ) );
-
-    auto server = app.listen( "[::0]", 8000, [=]( socket_t cli ){
-        console::log( "-> http://[::1]:8000" );
-    });
-
-    ws::server( server );
-
-    server.onConnect([=]( ws_t cli ){
-
-        cli.onData([=]( string_t data ){
-            console::log( ">>", data );
-            apf.next( cli, data );
-        });
-
-        cli.onClose([=](){
-            console::log( "disconnected" );
-        }); console::log( "connected" );
-
-    });
+    for( int x=os::cpus(); x-->0; ){    
+    worker::add([=](){
+        int port = 8000 + x + 1;
+        controller::http_server( 8000, x );
+        controller::ws_server  ( port, x );
+    process::wait(); return -1; });
+    }
 
 }
+
+/*────────────────────────────────────────────────────────────────────────────*/

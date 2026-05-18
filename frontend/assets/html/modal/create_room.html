@@ -1,0 +1,38 @@
+<div class="uk-width-2xlarge uk-height-large uk-background-dark uk-border uk-rounded uk-flex uk-inline">
+    <label  class="uk-button uk-button-danger uk-position-top-right"
+    ><input type="radio" hidden modal-close ><icon>close</icon></label>
+
+    <div class="uk-width-1-1 uk-flex uk-flex-column uk-padding uk-gap" map-selector>
+    <div class="uk-flex uk-child-width-auto uk-gap-2xsmall">
+    <label class="uk-button uk-button-light-outline"
+        ><input type="radio" name="map-selector" value="0" hidden checked> Space Station </label>
+    <label class="uk-button uk-button-light-outline"
+        ><input type="radio" name="map-selector" value="1" hidden> Mars Colony </label>
+    <label class="uk-button uk-button-light-outline"
+        ><input type="radio" name="map-selector" value="2" hidden> Aeroship </label>
+    <label class="uk-button uk-button-light-outline"
+        ><input type="radio" name="map-selector" value="3" hidden> Frostpoint </label>
+    </div>
+        <img class="uk-rounded uk-border uk-border-light" src="assets/image/img_map_0.png" loading="lazy">
+        <img class="uk-rounded uk-border uk-border-light" src="assets/image/img_map_1.png" loading="lazy">
+        <img class="uk-rounded uk-border uk-border-light" src="assets/image/img_map_2.png" loading="lazy">
+        <img class="uk-rounded uk-border uk-border-light" src="assets/image/img_map_3.png" loading="lazy">
+    </div>
+    
+    <style>
+
+        [map-selector]:has( label:nth-child(1) input:checked ) img:not(:nth-of-type(1)) { display: none; }
+        [map-selector]:has( label:nth-child(2) input:checked ) img:not(:nth-of-type(2)) { display: none; }
+        [map-selector]:has( label:nth-child(3) input:checked ) img:not(:nth-of-type(3)) { display: none; }
+        [map-selector]:has( label:nth-child(4) input:checked ) img:not(:nth-of-type(4)) { display: none; }
+
+        [map-selector] label:has( input:checked ) { background: white !important; color: black !important; }
+
+    </style>
+
+    <button class="uk-button uk-button-primary uk-position-bottom-left 
+                   uk-width-1-1 uk-rounded-remove-top"
+            onclick="${0}._nodepp_invoke_('${1}',0)"
+    > Create Room </button>
+
+</div>
